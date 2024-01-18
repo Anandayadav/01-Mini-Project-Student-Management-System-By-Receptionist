@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+  </head>
+  <center>
+  <body>
+	  <div class="container">
+   		 <h1>Login Page </h1>
+   		 <font color='red'><p th:text="${ErrMsg}"></p></font>
+   		 <form th:action="@{/do-Login}" th:object="${Counsellor}" method="post">
+				<table>
+					<tr>
+				<td>email:</td>
+				<td><input type="email" th:field="*{email}" required /></td>
+			</tr>
+			<tr>
+				<td>password:</td>
+				<td><input type="password" th:field="*{password}" required /></td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td><input type="submit"  value="Login" class="btn btn-primary"></td>
+			</tr>
+				</table>
+   		 
+    	<a href="/Newregister">Register Here.</a>
+    	<a href="/Forgotpswrd">Forgot password</a>
+    	
+    </div>
+  </body>
+  </center>
+</html>

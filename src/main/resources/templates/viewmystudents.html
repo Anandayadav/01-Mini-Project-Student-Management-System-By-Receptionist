@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<a href="/Logout">Logout</a>
+<body>
+
+<div class="container mt-5">
+   <center> <h2>Student List</h2></center>
+
+	
+		
+		<form th:action="@{viewstudents}" th:object="${newcriteria}" th:method="post">
+		<tr>
+				<td>Class Mode:</td>
+				<td><select th:field=*{coursemode} required style="width: 100px">
+					<option value="">-select-</option>
+					<option value="online">online</option>
+					<option value="offline">offline</option>
+					</select>
+				</td>
+			
+		
+				<td>Course :</td>
+				<td><select th:field=*{course} required style="width: 100px">
+					<option value="">-select-</option>
+					<option value="java">java</option>
+					<option value="python">python</option>
+					<option value="devOps">devOps</option>
+					</select>
+				</td>
+			
+		
+				<td>Status :</td>
+				<td><select th:field=*{enqstatus} required>
+					<option value="">-select-</option>
+					<option value="New">New</option>
+					<option value="Enrolled">Enrolled</option>
+					<option value="Lost">Lost</option>option>
+					</select>
+				</td>
+				
+				<td><input type="submit" value="Apply"</td>
+			</tr>
+			
+			
+			</form>
+		
+		    <table class="table">
+
+        <thead>
+        <tr>
+            <th>Sid</th>
+            <th>Cid</th>
+            <th>Sname</th>
+            <th>Contact Number</th>
+            <th>Course</th>
+            <th>Classmode</th>
+            <th>Enquiry status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.sid}"></td>
+            <td th:text="${student.cid}"></td>
+            <td th:text="${student.sname}"></td>
+             <td th:text="${student.contactno}"></td>
+             <td th:text="${student.course}"></td>
+            <td th:text="${student.classmode}"></td>
+			<td th:text="${student.enqstatus}"></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

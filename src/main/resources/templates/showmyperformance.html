@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+  </head><center>
+  <body>
+	  <div class="container">
+   		 <h1>Your Performance </h1><p></p>
+   		 
+   		 
+		<h3>Total Enquireies</h3>	
+   		<h3> <font color='blue'><p th:text="${TotalStudents}"></p></font></h3>
+   		 
+   		<h3>Enrolled Enquireies</h3>	
+   		<h3> <font color='green'><p th:text="${Enrolledstudents}"></p></font></h3>
+   		
+   		<h3>Lost Enquireies</h3>	
+   		<h3> <font color='red'><p th:text="${Loststudents}"></p></font></h3>
+   		 
+   		 
+				
+   		 
+    	<a href="/addstudent">Add Enquiry.</a>
+    	<a href="/viewstudents">View Enquiry</a>
+    	<a href="/Logout">Logout</a>
+    </div>
+    </center>
+  </body>
+</html>

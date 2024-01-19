@@ -120,6 +120,11 @@ public class Counsellorcontroller {
 		HttpSession session=req.getSession();
 		Integer cid=(Integer) session.getAttribute("CID");
 		
+		if(cid==null)
+		{
+			return "redirect:/";
+		}
+		
 		Dashboard dbs=cservice.showDashboard(cid);
 		
 		model.addAttribute("TotalStudents", dbs.getTotequiries());
@@ -140,19 +145,6 @@ public class Counsellorcontroller {
 		return "redirect:/";
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

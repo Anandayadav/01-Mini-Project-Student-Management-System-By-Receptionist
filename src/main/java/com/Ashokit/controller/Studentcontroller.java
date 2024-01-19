@@ -70,6 +70,10 @@ public class Studentcontroller {
 		HttpSession session=req.getSession();
 		Integer cid=(Integer) session.getAttribute("CID");
 		
+		if(cid==null)
+		{
+			return "redirect:/";
+		}
 	
 		List<Student>students=sservice.showMyRecords(cid);
 		
@@ -90,7 +94,11 @@ public class Studentcontroller {
 		HttpSession session=req.getSession();
 		Integer cid=(Integer) session.getAttribute("CID");
 		
-	
+		if(cid==null)
+		{
+			return "redirect:/";
+		}
+		
 		List<Student>students=sservice.showMyRecords(cid);
 		
 

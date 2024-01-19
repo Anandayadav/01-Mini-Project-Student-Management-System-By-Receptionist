@@ -3,6 +3,7 @@ package com.Ashokit.controller;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,6 +62,26 @@ public class Studentcontroller {
 	}
 	
 	@GetMapping("/viewstudents")
+	public String viewallStudets(HttpServletRequest req,Model model)
+	{
+		
+		model.addAttribute("newcriteria", new Criteria());
+		
+		HttpSession session=req.getSession();
+		Integer cid=(Integer) session.getAttribute("CID");
+		
+	
+		List<Student>students=sservice.showMyRecords(cid);
+		
+		model.addAttribute("students", students);
+
+		
+		return "viewmystudents";
+		
+	}
+	
+	
+	@PostMapping("/viewsfilterdtudents")
 	public String filterStudets(Criteria cr,HttpServletRequest req,Model model)
 	{
 		
@@ -71,25 +92,22 @@ public class Studentcontroller {
 		
 	
 		List<Student>students=sservice.showMyRecords(cid);
+		
 
-		model.addAttribute("students", students);
+		
+			List<Student>fstudents=students.stream()
+					.filter(e->e.getCourse().equals(cr.getCourse()))
+					.filter(e->e.getClassmode().equals(cr.getCoursemode()))
+					.filter(e->e.getEnqstatus().equals(cr.getEnqstatus()))
+					.collect(Collectors.toList());
+			model.addAttribute("students", fstudents);
+
+					
+
 		
 		
 		
 		return "viewmystudents";
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

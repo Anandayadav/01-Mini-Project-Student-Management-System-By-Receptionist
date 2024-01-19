@@ -80,16 +80,17 @@ public class Counsellorcontroller {
 		
 		
 		Counsellor cl=cservice.login(c.getEmail(),c.getPassword());
-		HttpSession session=req.getSession(true);
-		session.setAttribute("CID", cl.getCid());
+		
 		
 		
 		if(cl!=null)
 		{
+			HttpSession session=req.getSession(true);
+			session.setAttribute("CID", cl.getCid());
 			return "redirect:/dashboard";
 		}
 		else {
-		model.addAttribute("ErrMsg", "Invalid login credincials.");
+		model.addAttribute("ErrMsg", "Invalid login credintials.");
 		}
 		return "login";
 	}

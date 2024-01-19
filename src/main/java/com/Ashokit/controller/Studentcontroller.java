@@ -102,11 +102,7 @@ public class Studentcontroller {
 					.collect(Collectors.toList());
 			model.addAttribute("students", fstudents);
 
-					
-
-		
-		
-		
+			
 		return "viewmystudents";
 		
 	}

@@ -3,6 +3,8 @@
 <head>
     <title>Student List</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="/webjars/jquery/3.6.4/jquery.min.js"></script>
+
 </head>
 <a href="/Logout">Logout</a>
 <body>
@@ -12,10 +14,10 @@
 
 	
 		
-		<form th:action="@{viewsfilterdtudents}" th:object="${newcriteria}" th:method="post">
+		<form th:action="@{/filter-enquiries}" th:object="${cr}" th:method="post">
 		<tr>
-				<td>Class Mode:</td>
-				<td><select th:field=*{coursemode} required style="width: 100px">
+		<td>Class Mode:</td>
+				<td><select th:field=*{coursemode}  style="width: 100px">
 					<option value="">-select-</option>
 					<option value="online">online</option>
 					<option value="offline">offline</option>
@@ -24,7 +26,7 @@
 			
 		
 				<td>Course :</td>
-				<td><select th:field=*{course} required style="width: 100px">
+				<td><select th:field=*{course}  style="width: 100px">
 					<option value="">-select-</option>
 					<option value="java">java</option>
 					<option value="python">python</option>
@@ -34,7 +36,7 @@
 			
 		
 				<td>Status :</td>
-				<td><select th:field=*{enqstatus} required>
+				<td><select th:field=*{enqstatus}>
 					<option value="">-select-</option>
 					<option value="New">New</option>
 					<option value="Enrolled">Enrolled</option>
@@ -42,13 +44,12 @@
 					</select>
 				</td>
 				
-				<td><input type="submit" value="Apply"</td>
 			</tr>
 			
 			
 			</form>
-		
-		    <table class="table">
+		<div id="filterTable"></div>
+		<table class="table table-bordered" id="enqTable">
 
         <thead>
         <tr>
@@ -75,6 +76,33 @@
         </tbody>
     </table>
 </div>
+
+
+	<script>
+		$(document).ready(function() {
+			$('.form-select').on("change", function() {
+				$.ajax({
+					type : 'post',
+					url : '/filter-enquiries',
+					data : {
+						 course: $('#course').val(),
+						 coursemode: $('#classmode').val(),
+						 enqstatus: $('#enqstatus').val(),
+					},
+					success : function(result) {
+						$("#enqTable").hide();
+						$("#filterTable").html(result);
+					}
+				});
+			});
+		});
+	</script>
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
 
 </body>
 </html>

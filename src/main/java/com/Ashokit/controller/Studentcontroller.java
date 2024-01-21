@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.Ashokit.entity.Student;
@@ -65,7 +66,7 @@ public class Studentcontroller {
 	public String viewallStudets(HttpServletRequest req,Model model)
 	{
 		
-		model.addAttribute("newcriteria", new Criteria());
+		model.addAttribute("cr", new Criteria());
 		
 		HttpSession session=req.getSession();
 		Integer cid=(Integer) session.getAttribute("CID");
@@ -85,11 +86,11 @@ public class Studentcontroller {
 	}
 	
 	
-	@PostMapping("/viewsfilterdtudents")
-	public String filterStudets(Criteria cr,HttpServletRequest req,Model model)
+	@PostMapping("/filter-enquiries")
+	public String filterStudets(@ModelAttribute("cr") Criteria cr,HttpServletRequest req,Model model)
 	{
 		
-		model.addAttribute("newcriteria", new Criteria());
+	
 		
 		HttpSession session=req.getSession();
 		Integer cid=(Integer) session.getAttribute("CID");
@@ -99,19 +100,20 @@ public class Studentcontroller {
 			return "redirect:/";
 		}
 		
-		List<Student>students=sservice.showMyRecords(cid);
+		List<Student>students=sservice.searchCriteria(cr,cid);
 		
 
-		
+		/*
 			List<Student>fstudents=students.stream()
 					.filter(e->e.getCourse().equals(cr.getCourse()))
 					.filter(e->e.getClassmode().equals(cr.getCoursemode()))
 					.filter(e->e.getEnqstatus().equals(cr.getEnqstatus()))
 					.collect(Collectors.toList());
 			model.addAttribute("students", fstudents);
-
+		 */
 			
-		return "viewmystudents";
+		model.addAttribute("students", students);
+		return "filterenqview";
 		
 	}
 }

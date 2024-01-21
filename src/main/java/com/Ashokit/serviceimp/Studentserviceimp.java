@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.Ashokit.entity.Student;
@@ -35,15 +36,33 @@ public class Studentserviceimp implements Studentservice {
 	
 	@Override
 	public List<Student> searchCriteria(Criteria cr,Integer cid) {
-		List<Student>students=srepo.findByCid(cid);	
 		
-		if(cr!=null)
+		
+		Student cs=new Student();
+		
+		cs.setCid(cid);
+		
+		if(cr.getCourse()!=null && !cr.getCourse().equals(""))
 		{
-		return	students.stream()
-						.filter(e->e.getClassmode().isEmpty()||e.getClassmode().equals("online")||e.getClassmode().equals("offline"))
-						.collect(Collectors.toList());
-		
+			cs.setCourse(cr.getCourse());
+			
 		}
-		return null;
+		
+		if(cr.getCoursemode()!=null && !cr.getCoursemode().equals(""))
+		{
+			cs.setClassmode(cr.getCoursemode());
+		}
+		
+		if(cr.getEnqstatus()!=null && !cr.getEnqstatus().equals(""))
+		{
+			cs.setEnqstatus(cr.getEnqstatus());
+		}
+			
+		Example<Student>incrit=Example.of(cs);
+		
+		List<Student>filtstudents=srepo.findAll(incrit);
+		
+		return filtstudents;
+		
 	}
 }
